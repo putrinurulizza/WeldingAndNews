@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriBerita;
 use Illuminate\Http\Request;
 
 class DashboardKategoriBeritaController extends Controller
@@ -11,7 +12,8 @@ class DashboardKategoriBeritaController extends Controller
      */
     public function index()
     {
-        //
+        $kategoris = KategoriBerita::all();
+        return view('dashboard.kategori-berita.index')->with(compact('kategoris'));
     }
 
     /**

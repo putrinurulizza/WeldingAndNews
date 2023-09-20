@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita;
 use Illuminate\Http\Request;
 
-class DashboardBeritaController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $beritas = Berita::all();
-        return view('dashboard.berita.index')->with(compact('beritas'));
+        return view('dashboard.index');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Welder;
 use Illuminate\Http\Request;
 
 class DashboardWeldersController extends Controller
@@ -11,7 +12,8 @@ class DashboardWeldersController extends Controller
      */
     public function index()
     {
-        //
+        $welders = Welder::all();
+        return view('dashboard.welders.index')->with(compact('welders'));
     }
 
     /**
