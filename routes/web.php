@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardKategoriBeritaController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardWeldersController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +23,15 @@ Route::get('/', function () {
     return view('dashboard/index');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/login', 'index')->name('login')->middleware('guest');
+    Route::post('/login', 'authenticate');
+    Route::post('/logout', 'logout');
+});
 
-Route::prefix('/dashboard')->group(function () {
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+
+Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::resource('/user', DashboardUserController::class);
     Route::post('/user/reset/{user}', [DashboardUserController::class, 'reset'])->name('user.reset');
     Route::resource('/berita', DashboardBeritaController::class);
