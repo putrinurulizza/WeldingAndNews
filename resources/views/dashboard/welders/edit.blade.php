@@ -11,7 +11,7 @@
 
     <div class="card mb-3 mt-3">
         <div class="card-body">
-            <form action="{{ route('welder.update', $welder->id) }}" method="post">
+            <form action="{{ route('welder.update', $welder->id) }}" method="post" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="mb-3">
@@ -81,6 +81,7 @@
                     @enderror
                 </div>
 
+                <input type="hidden" value="{{ $welder->foto }}" name="oldImage">
                 <div class="mb-3">
                     <label for="foto" class="form-label">foto</label>
                     <img src="{{ asset('storage/' . $welder->foto) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
@@ -103,7 +104,7 @@
 @section('scripts')
     <script>
         function previewImage() {
-            const image = document.querySelector('#thumbnail');
+            const image = document.querySelector('#foto');
             const imgPreview = document.querySelector('.img-preview');
 
             imgPreview.style.display = 'block';

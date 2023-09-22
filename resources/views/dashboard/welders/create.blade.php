@@ -11,7 +11,7 @@
 
     <div class="card mb-3 mt-3">
         <div class="card-body">
-            <form action="{{ route('welder.store') }}" method="post">
+            <form action="{{ route('welder.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Nama</label>
