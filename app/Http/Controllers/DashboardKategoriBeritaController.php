@@ -29,7 +29,7 @@ class DashboardKategoriBeritaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

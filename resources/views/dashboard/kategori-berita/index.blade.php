@@ -25,10 +25,10 @@
 
     <div class="row">
         <div class="col">
-            <a class="btn btn-primary" href="#">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
                 <i class="fa-regular fa-plus me-2"></i>
                 Tambah
-            </a>
+            </button>
         </div>
     </div>
 
@@ -64,38 +64,11 @@
                                         </a>
                                     </td>
                                 </tr>
-
-                                {{-- Modal Hapus Berita --}}
-                                {{-- <div class="modal fade" id="modalHapus{{ $loop->iteration }}" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Hapus Berita</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <form action="" method="post">
-                                        @method('delete')
-                                        @csrf
-                                        <div class="modal-body">
-                                            <p class="fs-6">Apakah anda yakin akan menghapus berita
-                                                <b>{{ $berita->judul }}</b>?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div> --}}
-                                {{-- / Modal Hapus Berita --}}
                             @endforeach
                         </tbody>
                     </table>
                     {{-- End Table --}}
+
                 </div>
             </div>
         </div>
