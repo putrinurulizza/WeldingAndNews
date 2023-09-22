@@ -41,7 +41,7 @@
                         style="width:100%">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>No</th>
                                 <th>Nama</th>
                                 <th>Username</th>
                                 <th>Role</th>
@@ -94,7 +94,7 @@
                                 <x-form_modal :id="'modalEdit' . $loop->iteration" title="Edit User" :route="route('user.update', $user->id)" btnTitle="Edit"
                                     method='put' primaryBtnStyle="btn-outline-warning" secBtnStyle="btn-secondary">
                                     <div class="mb-3">
-                                        <label for="Fakultas" class="form-label">Nama</label>
+                                        <label for="name" class="form-label">Nama</label>
                                         <input type="name" class="form-control @error('name') is-invalid @enderror"
                                             id="name" name="name" value="{{ old('name', $user->name) }}">
                                         @error('name')
@@ -126,7 +126,7 @@
                                 </x-form_modal>
                                 {{-- End Modal Edit --}}
 
-                                {{-- Modal Edit --}}
+                                {{-- Modal Edit Password --}}
                                 <x-form_modal :id="'resetPassword' . $loop->iteration" title="Reset Password" :route="route('user.reset', $user->id)" btnTitle="Reset"
                                     primaryBtnStyle="btn-outline-dark" secBtnStyle="btn-secondary">
                                     <div class="mb-3">
@@ -135,11 +135,9 @@
                                         <div id="pwd1" class="input-group">
                                             <input type="password"
                                                 class="form-control border-end-0 @error('password') is-invalid @enderror"
-                                                name="password" id="password"
-                                                value="{{ old('password') }}" required>
+                                                name="password" id="password" value="{{ old('password') }}" required>
                                             <span class="input-group-text cursor-pointer">
-                                                <i class="fa-regular fa-eye-slash"
-                                                    id="togglePassword"></i>
+                                                <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
                                             </span>
                                             @error('password')
                                                 <div class="invalid-feedback">
@@ -156,11 +154,9 @@
                                         <div id="pwd2" class="input-group">
                                             <input type="password"
                                                 class="form-control border-end-0 @error('password2') is-invalid @enderror"
-                                                name="password2" id="password2"
-                                                value="{{ old('password2') }}" required>
+                                                name="password2" id="password2" value="{{ old('password2') }}" required>
                                             <span class="input-group-text cursor-pointer">
-                                                <i class="fa-regular fa-eye-slash"
-                                                    id="togglePassword"></i>
+                                                <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
                                             </span>
                                             @error('password2')
                                                 <div class="invalid-feedback">
