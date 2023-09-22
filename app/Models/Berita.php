@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Berita extends Model
 {
     use HasFactory;
+    protected $guarded = [
+        'id'
+    ];
 
     public function KategoriBerita()
     {

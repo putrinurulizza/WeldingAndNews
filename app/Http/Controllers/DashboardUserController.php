@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardUserController extends Controller
 {
@@ -29,7 +30,18 @@ class DashboardUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'username' => ['required', 'max:16', 'unique:users'],
+            'password' => 'required|max:255',
+            'is_admin' => 'required'
+        ]);
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+
+        User::create($validatedData);
+
+        return redirect('/dashboard/user')->with('success', 'User baru berhasil dibuat!');
     }
 
     /**
@@ -51,16 +63,52 @@ class DashboardUserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $rules = [
+            'name' => 'required|max:255',
+            'is_admin' => 'required'
+        ];
+
+        if ($request->username != $user->username) {
+            $rules['username'] = ['required', 'max:16', 'unique:users'];
+        }
+
+        $validatedData = $request->validate($rules);
+
+        User::where('id', $user->id)->update($validatedData);
+
+        return redirect('/dashboard/user')->with('success', 'User baru berhasil diperbaharui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        try {
+            User::destroy($user->id);
+            return redirect('/dashboard/user')->with('success', "User $user->name berhasil dihapus!");
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/user')->with('failed', "User $user->name tidak bisa dihapus karena sedang digunakan!");
+        }
+    }
+
+    public function reset(Request $request, User $user)
+    {
+        $rules = [
+            'password' => 'required|max:255',
+        ];
+
+        if ($request->password == $request->password2) {
+            $validatedData = $request->validate($rules);
+            $validatedData['password'] = Hash::make($validatedData['password']);
+
+            User::where('id', $user->id)->update($validatedData);
+        } else {
+            return back()->with('failed', 'Konfirmasi password tidak sesuai');
+        }
+
+        return redirect('/dashboard/user')->with('success', 'Password berhasil direset!');
     }
 }

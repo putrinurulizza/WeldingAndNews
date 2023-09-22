@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand">
-        <a class="navbar-brand fs-5 fw-bold" href="/">
+        <a class="navbar-brand fs-5 fw-bold" href="/dashboard">
             <span class="merek">Welding</span> ragon
         </a>
     </div>
@@ -23,17 +23,21 @@
             </a>
         </li>
 
-        <li class="menu-item {{ Request::is('dashboard/kategori-berita') ? 'active' : '' }}">
-            <a href="{{ route('kategori-berita.index') }}" class="menu-link">
-                <i class="fa-duotone fa-grip-dots-vertical me-4"></i>
-                <div data-i18n="Analytics">Kategori Berita</div>
-            </a>
-        </li>
-
         <li class="menu-item {{ Request::is('dashboard/welder') ? 'active' : '' }}">
             <a href="{{ route('welder.index') }}" class="menu-link">
                 <i class="fa-regular fa-screwdriver-wrench me-3"></i>
                 <div data-i18n="Analytics">Welder</div>
+            </a>
+        </li>
+
+        <li class="menu-item  px-3">
+            <hr>
+        </li>
+
+        <li class="menu-item {{ Request::is('dashboard/kategori-berita') ? 'active' : '' }}">
+            <a href="{{ route('kategori-berita.index') }}" class="menu-link">
+                <i class="fa-duotone fa-grip-dots-vertical me-4"></i>
+                <div data-i18n="Analytics">Kategori Berita</div>
             </a>
         </li>
 
