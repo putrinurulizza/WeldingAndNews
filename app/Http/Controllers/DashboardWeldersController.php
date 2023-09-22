@@ -43,9 +43,9 @@ class DashboardWeldersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Welder $welder)
     {
-        //
+        return view('dashboard.welders.edit')->with(compact('welder'));
     }
 
     /**
