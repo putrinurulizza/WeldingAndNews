@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('beritas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kategoriId')->constrained('kategori_beritas')->onUpdate('cascade')->onDelete('restrict');
-            $table->string('slug');
             $table->string('title');
+            $table->string('slug');
             $table->longText('content');
             $table->text('thumbnail');
             $table->timestamps();

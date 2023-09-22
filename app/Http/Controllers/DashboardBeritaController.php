@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\KategoriBerita;
 use Illuminate\Http\Request;
 
 class DashboardBeritaController extends Controller
@@ -21,7 +22,8 @@ class DashboardBeritaController extends Controller
      */
     public function create()
     {
-        //
+        $kategoris = KategoriBerita::all();
+        return view('dashboard.berita.create')->with(compact('kategoris'));
     }
 
     /**
@@ -43,9 +45,10 @@ class DashboardBeritaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Berita $beritum)
     {
-        //
+        $kategoris = KategoriBerita::all();
+        return view('dashboard.berita.edit')->with(compact('kategoris', 'beritum'));
     }
 
     /**

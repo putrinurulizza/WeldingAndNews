@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Berita;
+use App\Models\Welder;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,7 +13,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $total_welder = Welder::count();
+        $total_berita = Berita::count();
+        return view('dashboard.index')->with(compact('total_welder', 'total_berita'));
     }
 
     /**

@@ -25,7 +25,7 @@
 
     <div class="row">
         <div class="col">
-            <a class="btn btn-primary" href="#">
+            <a class="btn btn-primary" href="{{ route('berita.create') }}">
                 <i class="fa-regular fa-plus me-2"></i>
                 Tambah
             </a>
@@ -41,29 +41,26 @@
                         style="width:100%">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Judul</th>
+                                <th>No</th>
+                                <th>Kategori</th>
+                                <th>Title</th>
                                 <th>Slug</th>
                                 <th>Content</th>
-                                <th>Kategori</th>
                                 <th>Thumbnail</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($beritas as $berita)
+                            @foreach ($beritas as $beritum)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $berita->title }}</td>
-                                    <td>{{ $berita->slug }}</td>
-                                    <td>{{ $berita->content }}</td>
-                                    <td>{{ $berita->KategoriBerita->name }}</td>
-                                    <td>{{ $berita->thumbnail }}</td>
+                                    <td>{{ $beritum->KategoriBerita->name }}</td>
+                                    <td>{{ $beritum->title }}</td>
+                                    <td>{{ $beritum->slug }}</td>
+                                    <td>{{ $beritum->content }}</td>
+                                    <td>{{ $beritum->thumbnail }}</td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-info">
-                                            <i class="fa-regular fa-eye"></i>
-                                        </a>
-                                        <a href="" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('berita.edit', $beritum->id) }}" class="btn btn-sm btn-warning">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                         <a href="#modalHapus{{ $loop->iteration }}" class="btn btn-sm btn-danger"
@@ -74,31 +71,16 @@
                                 </tr>
 
                                 {{-- Modal Hapus Berita --}}
-                                {{-- <div class="modal fade" id="modalHapus{{ $loop->iteration }}" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Hapus Berita</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <form action="" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <div class="modal-body">
-                                                <p class="fs-6">Apakah anda yakin akan menghapus berita
-                                                    <b>{{ $berita->judul }}</b>?</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Batal</button>
-                                                <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                                            </div>
-                                        </form>
+                                <x-form_modal :id="'modalHapus' . $loop->iteration" title="Hapus Berita" :route="route('berita.destroy', $beritum->id)" btnTitle="Hapus"
+                                    method='delete' primaryBtnStyle="btn-outline-danger" secBtnStyle="btn-secondary">
+                                    <p class="fs-6">Apakah anda yakin akan menghapus berita
+                                        <b>{{ $beritum->title }}</b> ?
+                                    </p>
+                                    <div class="alert alert-warning fade show" role="alert">
+                                        <i class="fa-duotone fa-triangle-exclamation me-2"></i>
+                                        Berita Ini Akan Terhapus!
                                     </div>
-                                </div>
-                            </div> --}}
+                                </x-form_modal>
                                 {{-- / Modal Hapus Berita --}}
                             @endforeach
                         </tbody>
@@ -108,4 +90,5 @@
             </div>
         </div>
     </div>
+
 @endsection
