@@ -34,7 +34,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::resource('/user', DashboardUserController::class);
     Route::post('/user/reset/{user}', [DashboardUserController::class, 'reset'])->name('user.reset');
+
     Route::resource('/berita', DashboardBeritaController::class);
+
     Route::resource('/welder', DashboardWeldersController::class);
+
     Route::resource('/kategori-berita', DashboardKategoriBeritaController::class);
 });

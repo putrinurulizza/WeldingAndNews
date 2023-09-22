@@ -21,7 +21,7 @@ class DashboardWeldersController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.welders.create');
     }
 
     /**

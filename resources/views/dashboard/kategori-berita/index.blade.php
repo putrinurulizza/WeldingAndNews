@@ -70,7 +70,8 @@
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Nama Kategori</label>
                                         <input type="name" class="form-control @error('name') is-invalid @enderror"
-                                            id="name" name="name" value="{{ old('name', $kategori->name) }}">
+                                            id="name" name="name" value="{{ old('name', $kategori->name) }}"
+                                            autofocus required>
                                         @error('name')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

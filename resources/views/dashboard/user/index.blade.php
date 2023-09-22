@@ -96,7 +96,8 @@
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Nama</label>
                                         <input type="name" class="form-control @error('name') is-invalid @enderror"
-                                            id="name" name="name" value="{{ old('name', $user->name) }}">
+                                            id="name" name="name" value="{{ old('name', $user->name) }}" autofocus
+                                            required>
                                         @error('name')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -106,7 +107,8 @@
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
                                         <input type="name" class="form-control @error('username') is-invalid @enderror"
-                                            id="username" name="username" value="{{ old('username', $user->username) }}">
+                                            id="username" name="username" value="{{ old('username', $user->username) }}"
+                                            required>
                                         @error('username')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -116,7 +118,7 @@
                                     <div class="mb-3">
                                         <label for="is_admin" class="form-label">Role</label>
                                         <select class="form-select @error('is_admin') is-invalid @enderror" name="is_admin"
-                                            id="is_admin">
+                                            id="is_admin" required>
                                             <option value="1" {{ $user->is_admin == 1 ? 'selected' : '' }}>Admin
                                             </option>
                                             <option value="0" {{ $user->is_admin == 0 ? 'selected' : '' }}>Operator
@@ -135,7 +137,8 @@
                                         <div id="pwd1" class="input-group">
                                             <input type="password"
                                                 class="form-control border-end-0 @error('password') is-invalid @enderror"
-                                                name="password" id="password" value="{{ old('password') }}" required>
+                                                name="password" id="password" value="{{ old('password') }}" autofocus
+                                                required>
                                             <span class="input-group-text cursor-pointer">
                                                 <i class="fa-regular fa-eye-slash" id="togglePassword"></i>
                                             </span>
@@ -149,8 +152,7 @@
 
                                     <div class="mb-3">
                                         <label for="password2" class="form-label">Konfirmasi
-                                            Password
-                                            Baru</label>
+                                            Password Baru</label>
                                         <div id="pwd2" class="input-group">
                                             <input type="password"
                                                 class="form-control border-end-0 @error('password2') is-invalid @enderror"
@@ -178,7 +180,7 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
                             <input type="name" class="form-control @error('name') is-invalid @enderror" id="name"
-                                name="name">
+                                name="name" autofocus required>
                             @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -188,7 +190,7 @@
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="name" class="form-control @error('username') is-invalid @enderror"
-                                id="username" name="username">
+                                id="username" name="username" required>
                             @error('username')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -198,7 +200,7 @@
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                id="password" name="password">
+                                id="password" name="password" required>
                             @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -208,7 +210,7 @@
                         <div class="mb-3">
                             <label for="isAdmin" class="form-label">Role</label>
                             <select class="form-select @error('isAdmin') is-invalid @enderror" name="is_admin"
-                                id="isAdmin">
+                                id="isAdmin" required>
                                 <option value="1">Admin
                                 </option>
                                 <option value="0">Operator
