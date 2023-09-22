@@ -43,7 +43,7 @@ class DashboardUserController extends Controller
             User::create($validatedData);
 
             return redirect('/dashboard/user')->with('success', 'User baru berhasil dibuat!');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect('/dashboard/user')->with('failed', 'Data gagal disimpan! ' . $e->getMessage());
         }
     }
@@ -72,19 +72,16 @@ class DashboardUserController extends Controller
         try {
             $rules = [
                 'name' => 'required|max:255',
+                'username' => 'required|max:255|unique:users,username,' . $user->id,
                 'is_admin' => 'required'
             ];
-
-            if ($request->username != $user->username) {
-                $rules['username'] = ['required', 'max:16', 'unique:users'];
-            }
 
             $validatedData = $request->validate($rules);
 
             User::where('id', $user->id)->update($validatedData);
 
             return redirect('/dashboard/user')->with('success', 'Data user berhasil diperbarui!');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect('/dashboard/user')->with('failed', 'Data gagal diperbarui! ' . $e->getMessage());
         }
     }
@@ -118,7 +115,7 @@ class DashboardUserController extends Controller
                 return back()->with('failed', 'Konfirmasi password tidak sesuai');
             }
             return redirect('/dashboard/user')->with('success', 'Password berhasil direset!');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect('/dashboard/user')->with('failed', 'Password gagal diperbarui! ' . $e->getMessage());
         }
     }

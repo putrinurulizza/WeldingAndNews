@@ -64,12 +64,10 @@
                                     <td>{{ $welder->kota }}</td>
                                     <td>{{ $welder->foto }}</td>
                                     <td>
-                                        <a href=""
-                                            class="btn btn-sm btn-info">
+                                        <a href="" class="btn btn-sm btn-info">
                                             <i class="fa-regular fa-eye"></i>
                                         </a>
-                                        <a href=""
-                                            class="btn btn-sm btn-warning">
+                                        <a href="" class="btn btn-sm btn-warning">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                         <a href="#modalHapus{{ $loop->iteration }}" class="btn btn-sm btn-danger"

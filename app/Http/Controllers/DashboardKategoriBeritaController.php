@@ -37,7 +37,7 @@ class DashboardKategoriBeritaController extends Controller
             KategoriBerita::create($validatedData);
 
             return redirect('/dashboard/kategori-berita')->with('success', 'Kategori berita baru berhasil dibuat!');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect('/dashboard/kategori-berita')->with('failed', 'Data gagal disimpan! ' . $e->getMessage());
         }
     }
@@ -73,7 +73,7 @@ class DashboardKategoriBeritaController extends Controller
             KategoriBerita::where('id', $kategori_beritum->id)->update($validatedData);
 
             return redirect('/dashboard/kategori-berita')->with('success', 'Data kategori berita berhasil diperbarui!');
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect('/dashboard/kategori-berita')->with('failed', 'Data gagal diperbarui! ' . $e->getMessage());
         }
     }
