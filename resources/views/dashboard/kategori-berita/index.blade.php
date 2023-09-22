@@ -25,10 +25,10 @@
 
     <div class="row">
         <div class="col">
-            <a class="btn btn-primary" href="#">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
                 <i class="fa-regular fa-plus me-2"></i>
                 Tambah
-            </a>
+            </button>
         </div>
     </div>
 
@@ -41,7 +41,7 @@
                         style="width:100%">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>No</th>
                                 <th>Kategori</th>
                                 <th>Action</th>
                             </tr>
@@ -52,50 +52,68 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $kategori->name }}</td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-info">
-                                            <i class="fa-regular fa-eye"></i>
-                                        </a>
-                                        <a href="" class="btn btn-sm btn-warning">
+                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#modalEdit{{ $loop->iteration }}">
                                             <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                        <a href="#modalHapus{{ $loop->iteration }}" class="btn btn-sm btn-danger"
-                                            data-bs-toggle="modal">
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modalHapus{{ $loop->iteration }}">
                                             <i class="fa-regular fa-trash-can fa-lg"></i>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
 
-                                {{-- Modal Hapus Berita --}}
-                                {{-- <div class="modal fade" id="modalHapus{{ $loop->iteration }}" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Hapus Berita</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                {{-- Modal Edit --}}
+                                <x-form_modal :id="'modalEdit' . $loop->iteration" title="Edit Kategori Berita" :route="route('kategori-berita.update', $kategori->id)"
+                                    btnTitle="Edit" method='put' primaryBtnStyle="btn-outline-warning"
+                                    secBtnStyle="btn-secondary">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Nama Kategori</label>
+                                        <input type="name" class="form-control @error('name') is-invalid @enderror"
+                                            id="name" name="name" value="{{ old('name', $kategori->name) }}">
+                                        @error('name')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                    <form action="" method="post">
-                                        @method('delete')
-                                        @csrf
-                                        <div class="modal-body">
-                                            <p class="fs-6">Apakah anda yakin akan menghapus berita
-                                                <b>{{ $berita->judul }}</b>?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-outline-danger">Hapus</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div> --}}
+                                </x-form_modal>
+                                {{-- End Modal Edit --}}
+
+                                {{-- Modal Hapus Kategori Berita --}}
+                                <x-form_modal :id="'modalHapus' . $loop->iteration" title="Hapus Kategori Berita" :route="route('kategori-berita.destroy', $kategori->id)"
+                                    btnTitle="Hapus" method='delete' primaryBtnStyle="btn-outline-danger"
+                                    secBtnStyle="btn-secondary">
+                                    <p class="fs-6">Apakah anda yakin akan menghapus daftar kategori berita
+                                        <b>{{ $kategori->name }}</b> ?
+                                    </p>
+                                    <div class="alert alert-warning fade show" role="alert">
+                                        <i class="fa-duotone fa-triangle-exclamation me-2"></i>
+                                        Data Kategori Berita Ini Akan Terhapus!
+                                    </div>
+                                </x-form_modal>
                                 {{-- / Modal Hapus Berita --}}
                             @endforeach
                         </tbody>
                     </table>
                     {{-- End Table --}}
+
+                    {{-- Modal Add --}}
+                    <x-form_modal :id="'createModal'" title="Tambah Kategori Berita" :route="route('kategori-berita.store')" btnTitle="Simpan"
+                        primaryBtnStyle="btn-outline-primary" secBtnStyle="btn-secondary">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama Kategori</label>
+                            <input type="name" class="form-control @error('name') is-invalid @enderror" id="name"
+                                name="name" autofocus required>
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </x-form_modal>
+                    {{-- End Modal Add --}}
+
                 </div>
             </div>
         </div>

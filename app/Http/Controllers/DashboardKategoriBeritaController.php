@@ -29,7 +29,17 @@ class DashboardKategoriBeritaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|max:255|unique:kategori_beritas'
+            ]);
+
+            KategoriBerita::create($validatedData);
+
+            return redirect('/dashboard/kategori-berita')->with('success', 'Kategori berita baru berhasil dibuat!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/kategori-berita')->with('failed', 'Data gagal disimpan! ' . $e->getMessage());
+        }
     }
 
     /**
@@ -51,16 +61,33 @@ class DashboardKategoriBeritaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, KategoriBerita $kategori_beritum)
     {
-        //
+        try {
+            $rules = [
+                'name' => 'required|max:255|unique:kategori_beritas,name,' . $kategori_beritum->id,
+            ];
+
+            $validatedData = $request->validate($rules);
+
+            KategoriBerita::where('id', $kategori_beritum->id)->update($validatedData);
+
+            return redirect('/dashboard/kategori-berita')->with('success', 'Data kategori berita berhasil diperbarui!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/kategori-berita')->with('failed', 'Data gagal diperbarui! ' . $e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(KategoriBerita $kategori_beritum)
     {
-        //
+        try {
+            KategoriBerita::destroy($kategori_beritum->id);
+            return redirect('/dashboard/kategori-berita')->with('success', "Kategori berita $kategori_beritum->name berhasil dihapus!");
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/kategori-berita')->with('failed', "Kategori berita $kategori_beritum->name tidak bisa dihapus karena sedang digunakan!");
+        }
     }
 }

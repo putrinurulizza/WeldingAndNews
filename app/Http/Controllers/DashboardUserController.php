@@ -30,18 +30,22 @@ class DashboardUserController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'username' => ['required', 'max:16', 'unique:users'],
-            'password' => 'required|max:255',
-            'is_admin' => 'required'
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|max:255',
+                'username' => ['required', 'max:16', 'unique:users'],
+                'password' => 'required|max:255',
+                'is_admin' => 'required'
+            ]);
 
-        $validatedData['password'] = Hash::make($validatedData['password']);
+            $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create($validatedData);
+            User::create($validatedData);
 
-        return redirect('/dashboard/user')->with('success', 'User baru berhasil dibuat!');
+            return redirect('/dashboard/user')->with('success', 'User baru berhasil dibuat!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/user')->with('failed', 'Data gagal disimpan! ' . $e->getMessage());
+        }
     }
 
     /**
@@ -65,20 +69,24 @@ class DashboardUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $rules = [
-            'name' => 'required|max:255',
-            'is_admin' => 'required'
-        ];
+        try {
+            $rules = [
+                'name' => 'required|max:255',
+                'is_admin' => 'required'
+            ];
 
-        if ($request->username != $user->username) {
-            $rules['username'] = ['required', 'max:16', 'unique:users'];
+            if ($request->username != $user->username) {
+                $rules['username'] = ['required', 'max:16', 'unique:users'];
+            }
+
+            $validatedData = $request->validate($rules);
+
+            User::where('id', $user->id)->update($validatedData);
+
+            return redirect('/dashboard/user')->with('success', 'Data user berhasil diperbarui!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/user')->with('failed', 'Data gagal diperbarui! ' . $e->getMessage());
         }
-
-        $validatedData = $request->validate($rules);
-
-        User::where('id', $user->id)->update($validatedData);
-
-        return redirect('/dashboard/user')->with('success', 'User baru berhasil diperbaharui!');
     }
 
     /**
@@ -96,19 +104,22 @@ class DashboardUserController extends Controller
 
     public function reset(Request $request, User $user)
     {
-        $rules = [
-            'password' => 'required|max:255',
-        ];
+        try {
+            $rules = [
+                'password' => 'required|max:255',
+            ];
 
-        if ($request->password == $request->password2) {
-            $validatedData = $request->validate($rules);
-            $validatedData['password'] = Hash::make($validatedData['password']);
+            if ($request->password == $request->password2) {
+                $validatedData = $request->validate($rules);
+                $validatedData['password'] = Hash::make($validatedData['password']);
 
-            User::where('id', $user->id)->update($validatedData);
-        } else {
-            return back()->with('failed', 'Konfirmasi password tidak sesuai');
+                User::where('id', $user->id)->update($validatedData);
+            } else {
+                return back()->with('failed', 'Konfirmasi password tidak sesuai');
+            }
+            return redirect('/dashboard/user')->with('success', 'Password berhasil direset!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/dashboard/user')->with('failed', 'Password gagal diperbarui! ' . $e->getMessage());
         }
-
-        return redirect('/dashboard/user')->with('success', 'Password berhasil direset!');
     }
 }
