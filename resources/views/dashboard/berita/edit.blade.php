@@ -11,7 +11,7 @@
 
     <div class="card mb-3 mt-3">
         <div class="card-body">
-            <form action="{{ route('berita.update', $beritum->id) }}" method="post">
+            <form action="{{ route('berita.update', $beritum->id) }}" method="post" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="mb-3">
@@ -58,6 +58,7 @@
                     @enderror
                 </div>
 
+                <input type="hidden" value="{{ $beritum->thumbnail }}" name="oldImage">
                 <div class="mb-3">
                     <label for="thumbnail" class="form-label">Thumbnail</label>
                     <img src="{{ asset('storage/' . $beritum->thumbnail) }}"
@@ -73,14 +74,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea value="{{ old('content', $beritum->content) }}" id="editor"
-                        class="form-control @error('content') is-invalid @enderror" name="content" required></textarea>
-                    @error('content')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                    <label for="isi" class="form-label">Content</label>
+                    @error('isi')
+                        <p class="text-danger">{{ $message }}</p>
                     @enderror
+                    <input id="isi" type="hidden" name="content" value="{{ $beritum->content }}">
+                    <trix-editor input="isi"></trix-editor>
                 </div>
 
                 <button class="btn btn-primary float-end mt-3" type="submit">Edit</button>
@@ -125,4 +124,6 @@
             }
         }
     </script>
+     {{-- Trix JS --}}
+     <script type="text/javascript" src="{{ asset('js/trix.js') }}"></script>
 @endsection

@@ -39,7 +39,8 @@ class DashboardWeldersController extends Controller
                 'no_hp' => 'required',
                 'alamat' => 'required',
                 'kota' => 'required',
-                'foto' => 'required'
+                'foto' => 'required',
+                'deskripsi' => 'required',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect('/dashboard/welder')->with('failed', $e->getMessage());
@@ -86,7 +87,7 @@ class DashboardWeldersController extends Controller
             'no_hp' => 'required',
             'alamat' => 'required',
             'kota' => 'required',
-            'foto' => 'required'
+            'deskripsi' => 'required',
         ]);
 
         if ($request->file('foto')) {
@@ -102,7 +103,7 @@ class DashboardWeldersController extends Controller
 
         Welder::where('id', $welder->id)->update($validatedData);
 
-        return redirect('/dashboard/welder')->with('success', 'Mahasiswa baru berhasil dibuat!');
+        return redirect('/dashboard/welder')->with('success', 'Data Welder baru berhasil di Ubah!');
     }
 
     /**

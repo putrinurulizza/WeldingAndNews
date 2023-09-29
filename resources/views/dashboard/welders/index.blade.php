@@ -69,10 +69,10 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <a href="{{ route('welder.edit', $welder->id) }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('welder.edit', $welder->id) }}" class="btn btn-warning">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
-                                        <a href="#modalHapus{{ $welder->id }}" class="btn btn-sm btn-danger"
+                                        <a href="#modalHapus{{ $welder->id }}" class="btn btn-danger"
                                             data-bs-toggle="modal">
                                             <i class="fa-regular fa-trash-can fa-lg"></i>
                                         </a>

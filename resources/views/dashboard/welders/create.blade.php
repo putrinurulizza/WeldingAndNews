@@ -81,17 +81,49 @@
 
                 <div class="mb-3">
                     <label for="foto" class="form-label">Foto</label>
+                    <img class="img-preview img-fluid mb-3 col-sm-5">
                     <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto"
-                        name="foto" required>
+                        name="foto" required onchange="previewImage()">
                     @error('foto')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
+
+                <label for="deskripsi" class="form-label">Deskripsi</label>
+                <div class="mb-3 form-floating">
+                    <textarea class="form-control @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" id="deskripsi"
+                        name="deskripsi" required style="height: 100px"></textarea>
+                    <label for="floatingTextarea">Comments</label>
+                    @error('deskripsi')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
                 <button class="btn btn-primary float-end mt-3" type="submit">Simpan</button>
             </form>
 
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        function previewImage() {
+            const image = document.querySelector('#foto');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(OFREvent) {
+                imgPreview.src = OFREvent.target.result;
+            }
+        }
+    </script>
 @endsection

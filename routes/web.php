@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardBeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardKategoriBeritaController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardWeldersController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\WeldingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard/index');
-});
+Route::resource('/', BeritaController::class);
+Route::get('/show/{berita}',[ BeritaController::class, 'show'])->name('show');
+Route::get('/kategori/{kategori_id}', [BeritaController::class, 'beritaByKategori'])->name('berita.by_kategori');
+Route::resource('/welding', WeldingController::class);
 
 Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'index')->name('login')->middleware('guest');

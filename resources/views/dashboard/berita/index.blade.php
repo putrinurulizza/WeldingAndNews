@@ -44,7 +44,6 @@
                                 <th>No</th>
                                 <th>Kategori</th>
                                 <th>Title</th>
-                                <th>Slug</th>
                                 <th>Content</th>
                                 <th>Thumbnail</th>
                                 <th>Action</th>
@@ -56,14 +55,18 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $beritum->KategoriBerita->name }}</td>
                                     <td>{{ $beritum->title }}</td>
-                                    <td>{{ $beritum->slug }}</td>
-                                    <td>{{ $beritum->content }}</td>
-                                    <td>{{ $beritum->thumbnail }}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit(strip_tags($beritum->content), 100) }}</td>
                                     <td>
-                                        <a href="{{ route('berita.edit', $beritum->id) }}" class="btn btn-sm btn-warning">
+                                        <button class="btn btn-info" data-bs-toggle="modal"
+                                            data-bs-target="#fotoModal{{ $beritum->id }}">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('berita.edit', $beritum->id) }}" class="btn btn-warning">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
-                                        <a href="#modalHapus{{ $loop->iteration }}" class="btn btn-sm btn-danger"
+                                        <a href="#modalHapus{{ $loop->iteration }}" class="btn btn-danger"
                                             data-bs-toggle="modal">
                                             <i class="fa-regular fa-trash-can fa-lg"></i>
                                         </a>
@@ -82,6 +85,38 @@
                                     </div>
                                 </x-form_modal>
                                 {{-- / Modal Hapus Berita --}}
+
+                                {{-- Foto --}}
+                                <div class="modal fade" id="fotoModal{{ $beritum->id }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Foto Welder</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col text-center">
+                                                        @if ($beritum->thumbnail)
+                                                            <img class="rounded-3" style="object-fit: cover"
+                                                                src="{{ asset('storage/' . $beritum->thumbnail) }}"
+                                                                alt="" height="250" width="350">
+                                                        @else
+                                                            <p>Belum Ada Foto</p>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- Foto --}}
                             @endforeach
                         </tbody>
                     </table>

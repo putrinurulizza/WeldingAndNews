@@ -21,11 +21,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            if (Auth::user()->role != 0) {
                 return redirect()->intended('/dashboard');
-            } else {
-                return redirect()->intended('/');
-            }
         }
 
         return back()->with('loginError', 'Login Gagal, periksa kembali username atau password anda!');
@@ -39,6 +35,6 @@ class LoginController extends Controller
 
         request()->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/');
     }
 }

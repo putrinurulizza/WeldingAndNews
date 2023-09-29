@@ -95,6 +95,17 @@
                     @enderror
                 </div>
 
+                <div class="mb-3">
+                    <label for="deskripsi" class="form-label">Deskripsi</label>
+                    <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi"
+                        name="deskripsi" style="height: 100px" required>{{ old('deskripsi', $welder->deskripsi) }}</textarea>
+                    @error('deskripsi')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
                 <button class="btn btn-primary float-end mt-3" type="submit">Edit</button>
             </form>
         </div>

@@ -4,12 +4,12 @@
 
 /* CSS Navbar */
 .navbar {
-    background-image: linear-gradient(to right, #5080da, #012258);
+    background-image: linear-gradient(to right, #27374D, #526D82);
     color: #fff;
 }
 
 .merek {
-    color: #00d7ff;
+    color: #BAD7E9;
     font-weight: 600;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .nav-link.active {
-    color: #f57708 !important;
+    color: #BAD7E9 !important;
 }
 
 .dropdown-toggle {
@@ -27,7 +27,7 @@
 }
 
 .nav-link:hover {
-    color: #f57708 !important;
+    color: #BAD7E9 !important;
 }
 
 .list-user:hover {
@@ -36,8 +36,8 @@
 
 .btn-login:hover {
     background-color: transparent;
-    border: 1px solid #F57708;
-    color: #F57708;
+    border: 1px solid #BAD7E9;
+    color: #BAD7E9;
 }
 
 /* Akhir CSS Navbar */
@@ -103,7 +103,7 @@
 }
 
 .footer {
-    background-image: linear-gradient(to right, #5080da, #012258);
+    background-image: linear-gradient(to right, #27374D, #526D82);
 }
 
 /* Akhir CSS Beranda */
@@ -126,7 +126,7 @@ a.berita {
 }
 
 .btn-kategori {
-    background-image: linear-gradient(to right, #5080da, #012258);
+    background-image: linear-gradient(to right, #27374D, #526D82);
     border: none;
 }
 

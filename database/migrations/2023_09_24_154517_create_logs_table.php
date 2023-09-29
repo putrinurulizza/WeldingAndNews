@@ -11,16 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('welders', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('pemilik');
-            $table->integer('jumlah_pekerja');
-            $table->string('no_hp');
-            $table->text('alamat');
-            $table->string('kota');
-            $table->text('foto');
-            $table->text('deskripsi');
+            $table->string('visitor_ip');
             $table->timestamps();
         });
     }
@@ -30,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('welders');
+        Schema::dropIfExists('logs');
     }
 };

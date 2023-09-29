@@ -26,7 +26,7 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="row">
                             <div class="col">
-                                <h1 class="fw-bold fs-2 mb-5">@yield('page-heading', 'Dashboard')</h1>
+                                <h1 class="fw-bold fs-2 mb-3">@yield('page-heading', 'Dashboard')</h1>
                             </div>
                         </div>
                         <!-- Content -->

@@ -62,15 +62,15 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-dark" data-bs-toggle="modal"
+                                        <button class="btn btn-dark" data-bs-toggle="modal"
                                             data-bs-target="#resetPassword{{ $loop->iteration }}">
                                             <i class="fa-regular fa-unlock-keyhole"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
+                                        <button class="btn btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#modalEdit{{ $loop->iteration }}">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                        <button class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#modalHapus{{ $loop->iteration }}">
                                             <i class="fa-regular fa-trash-can fa-lg"></i>
                                         </button>

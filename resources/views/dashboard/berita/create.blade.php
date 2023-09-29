@@ -11,7 +11,7 @@
 
     <div class="card mb-3 mt-3">
         <div class="card-body">
-            <form action="{{ route('berita.store') }}" method="post">
+            <form action="{{ route('berita.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="kategoriId" class="form-label">Kategori</label>
@@ -41,20 +41,10 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="slug" class="form-label">Slug</label>
-                    <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug"
-                        name="slug" required>
-                    @error('slug')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
                     <label for="thumbnail" class="form-label">Thumbnail</label>
+                    <img class="img-preview img-fluid mb-3 col-sm-5">
                     <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail"
-                        name="thumbnail" required>
+                        name="thumbnail" onchange="previewImage()" required>
                     @error('thumbnail')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -63,13 +53,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea id="editor" class="form-control @error('content') is-invalid @enderror" name="content" required></textarea>
-                    @error('content')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                    <label for="isi" class="form-label">Content</label>
+                    @error('isi')
+                        <p class="text-danger">{{ $message }}</p>
                     @enderror
+                    <input id="isi" type="hidden" name="content" value="{{ old('isi') }}">
+                    <trix-editor input="isi"></trix-editor>
                 </div>
 
                 <button class="btn btn-primary float-end mt-3" type="submit">Simpan</button>
@@ -81,10 +70,20 @@
 
 @section('scripts')
     <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.error(error);
-            });
+        function previewImage() {
+            const image = document.querySelector('#thumbnail');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(OFREvent) {
+                imgPreview.src = OFREvent.target.result;
+            }
+        }
     </script>
+    {{-- Trix JS --}}
+    <script type="text/javascript" src="{{ asset('js/trix.js') }}"></script>
 @endsection
